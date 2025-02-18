@@ -9,30 +9,30 @@ namespace Mission06_Schuetzler.Models
     {
         [Key]
         [Required]
-        public required int MovieId { get; set; }
+        public int MovieId { get; set; }
 
         [ForeignKey("CategoryId")]
         public int? CategoryId { get; set; }
-        public Category? CategoryName { get; set; }
+        public Category? Category { get; set; }
 
         [Required(ErrorMessage = "Please enter a title")]
-        public required string Title { get; set; }
+        public string Title { get; set; }
        
         [Required(ErrorMessage = "Please enter a year")]
         [Range(1888, int.MaxValue, ErrorMessage = "Year must be 1888 or later.")]
-        public required int Year { get; set; }
+        public int Year { get; set; }
         
         public string? Director { get; set; }
         
         public string? Rating { get; set; }
 
         [Required(ErrorMessage = "Please select if edited")]
-        public required int Edited { get; set; }
+        public int Edited { get; set; }
        
         public string? LentTo { get; set; }
 
         [Required(ErrorMessage = "Please select if copied to Plex")]
-        public required int CopiedToPlex { get; set; }
+        public int CopiedToPlex { get; set; }
 
         //specify that notes cannot be more than 25 characters long (as a backup)
         [StringLength(25, ErrorMessage = "Notes cannot exceed 25 characters.")]

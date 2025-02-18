@@ -60,7 +60,7 @@ namespace Mission06_Schuetzler.Controllers
         public IActionResult MovieList()
         {
             var list = _movieContext.Movies
-                //.Include(x => x.CategoryName)
+                .Include(x => x.Category)
                 .OrderBy(x => x.Title)
                 .ToList();
 
