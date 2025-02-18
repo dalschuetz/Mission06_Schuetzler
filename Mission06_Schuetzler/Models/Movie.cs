@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mission06_Schuetzler.Models
 {
@@ -9,25 +10,28 @@ namespace Mission06_Schuetzler.Models
         [Key]
         [Required]
         public required int MovieID { get; set; }
-        
-        [Required]
-        public required string Category { get; set; }
-       
+
+        [ForeignKey("CategoryId")]
+        public int CategoryId { get; set; }
+        public Category CategoryName { get; set; }
+
         [Required]
         public required string Title { get; set; }
        
         [Required]
-        public required string Year { get; set; }
+        public required int Year { get; set; }
         
+        public string? Director { get; set; }
+        
+        public string? Rating { get; set; }
+
         [Required]
-        public required string Director { get; set; }
-        
-        [Required]
-        public required string Rating { get; set; }
-        
-        public bool? Edited { get; set; }
+        public required int Edited { get; set; }
        
         public string? LentTo { get; set; }
+
+        [Required]
+        public required int CopiedToPlex { get; set; }
 
         //specify that notes cannot be more than 25 characters long (as a backup)
         [StringLength(25, ErrorMessage = "Notes cannot exceed 25 characters.")]

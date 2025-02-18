@@ -11,5 +11,7 @@ namespace Mission06_Schuetzler.Models
         }
 
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
     }
 }

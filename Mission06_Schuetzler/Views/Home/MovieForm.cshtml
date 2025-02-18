@@ -7,8 +7,14 @@
 <!--Columns Needed = ID, Category, Title, Year, Director, Rating, Edited, Lent To, Notes-->
 <!--Sets Category, Title, Year, Director, and Rating to required-->
 <form method="post">
-    <label asp-for="Category">Category:</label>
-    <input asp-for="Category" required />
+    <label asp-for="CategoryId">Category:</label>
+    <select asp-for="CategoryId">
+        <option value="">Select a Category</option>
+        @foreach (Category c in ViewBag.Categories)
+        {
+            <option value="@c.CategoryId">@c.CategoryName</option>
+        }
+    </select>
     <br />
 
     <label asp-for="Title">Title:</label>
@@ -20,12 +26,12 @@
     <br />
 
     <label asp-for="Director">Director:</label>
-    <input asp-for="Director" required />
+    <input asp-for="Director"/>
     <br />
 
     <!--Drop down box for rating-->
     <label asp-for="Rating">Rating:</label>
-    <select asp-for="Rating" required>
+    <select asp-for="Rating">
         <option value="G">G</option>
         <option value="PG">PG</option>
         <option value="PG-13">PG-13</option>
@@ -35,7 +41,7 @@
 
     <!--Drop down box to choose yes or no for edited-->
     <label asp-for="Edited">Edited?:</label>
-    <select asp-for="Edited">
+    <select asp-for="Edited" required>
         <option value="true">Yes</option>
         <option value="false">No</option>
     </select>
@@ -43,6 +49,13 @@
 
     <label asp-for="LentTo">Lent To:</label>
     <input asp-for="LentTo" />
+    <br />
+
+    <label asp-for="CopiedToPlex">Copied to Plex?:</label>
+    <select asp-for="CopiedToPlex" required>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
     <br />
 
     <!--notes cannot be more than 25 characters long-->
