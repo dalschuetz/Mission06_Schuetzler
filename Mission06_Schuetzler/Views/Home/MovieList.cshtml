@@ -25,7 +25,7 @@
     {
         <tbody>
             <tr>
-                <td>@m.Category.CategoryName</td>
+                <td>@(m.Category?.CategoryName ?? "No Category")</td>
                 <td>@m.Title</td>
                 <td>@m.Year</td>
                 <td>@m.Director</td>
