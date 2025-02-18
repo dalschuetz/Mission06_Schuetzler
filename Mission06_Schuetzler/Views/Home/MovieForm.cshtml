@@ -6,7 +6,10 @@
 
 <!--Columns Needed = ID, Category, Title, Year, Director, Rating, Edited, Lent To, Notes-->
 <!--Sets Category, Title, Year, Director, and Rating to required-->
+
 <form method="post">
+    <input type="hidden" asp-for="MovieId" />
+
     <label asp-for="CategoryId">Category:</label>
     <select asp-for="CategoryId">
         <option value="">Select a Category</option>
@@ -22,7 +25,7 @@
     <br />
 
     <label asp-for="Year">Year:</label>
-    <input asp-for="Year" required />
+    <input asp-for="Year" required min="1888"/>
     <br />
 
     <label asp-for="Director">Director:</label>
@@ -64,4 +67,6 @@
     <br />
 
     <button type="submit">Submit Movie</button>
+
+    <div asp-validation-summary="All"></div>
 </form>

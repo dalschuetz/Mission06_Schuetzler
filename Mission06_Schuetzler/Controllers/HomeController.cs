@@ -31,40 +31,81 @@ namespace Mission06_Schuetzler.Controllers
         {
             ViewBag.Categories = _movieContext.Categories.ToList();
 
-            return View();
+            return View(new Movie());
         }
 
         [HttpPost]
         public IActionResult MovieForm(Movie response)
         {
-            //saves form to database
-            _movieContext.Movies.Add(response);
-            _movieContext.SaveChanges();
+            if (ModelState.IsValid) 
+            {
+                //saves form to database
+                _movieContext.Movies.Add(response);
+                _movieContext.SaveChanges();
 
-            //reloads the form page to enter a new movie, no confirmation page
-            return RedirectToAction("MovieForm");
+                //reloads the form page to enter a new movie, no confirmation page
+                return RedirectToAction("MovieList");
+            }
+            else
+            {
+                ViewBag.Categories = _movieContext.Categories.ToList();
+
+                return View(response);
+            }
         }
 
+
         //pulling data from database into MovieList
+        //NEED TO FIX CATEGORIES NOT SHOWING UP STILL
         public IActionResult MovieList()
         {
             var list = _movieContext.Movies
-                //.Include(x => x.Categories)
-                .OrderBy(x => x.Title).ToList();
-                
+                //.Include(x => x.CategoryName)
+                .OrderBy(x => x.Title)
+                .ToList();
 
             return View(list);
         }
 
+
+        //Edit Function
         [HttpGet]
-        public IActionResult UpdateMovie()
+        public IActionResult Edit(int id)
         {
-            return RedirectToAction("MovieForm");
+            var editableMovie = _movieContext.Movies
+                .Single(x => x.MovieId == id);
+
+            ViewBag.Categories = _movieContext.Categories.ToList();
+
+            return View("MovieForm", editableMovie);
         }
 
         [HttpPost]
-        public IActionResult UpdateMovie(Movie response) 
+        public IActionResult Edit(Movie updatedMovie) 
         {
+            _movieContext.Update(updatedMovie);
+            _movieContext.SaveChanges();
+
+            return RedirectToAction("MovieList");
+        }
+
+
+        //Delete Function
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var deleteableMovie = _movieContext.Movies
+                .Single(x => x.MovieId == id);
+
+            return View(deleteableMovie);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Movie deletedMovie)
+        {
+            _movieContext.Remove(deletedMovie);
+            _movieContext.SaveChanges();
+            
             return RedirectToAction("MovieList");
         }
     }
