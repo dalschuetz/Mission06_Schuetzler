@@ -1,43 +1,49 @@
 ﻿@{
     ViewData["Title"] = "View Movies";
 }
-
 @model List<Movie>
 
-
-<!--MAKE SURE TO USE BOOTSTRAP HERE!!!-->
-<table class="table table-bordered">
-    <thead class="fw-bold">
-        <tr>
-            <td>Category</td>
-            <td>Title</td>
-            <td>Year</td>
-            <td>Director</td>
-            <td>Rating</td>
-            <td>Edited</td>
-            <td>Lent To?</td>
-            <td>Copied to Plex?</td>
-            <td>Notes</td>
-        </tr>
-    </thead>
-
-    @foreach (var m in Model)
-    {
-        <tbody>
+<div class="container mt-4">
+    <table class="table table-striped table-hover table-bordered shadow-sm">
+        <thead class="table-dark">
             <tr>
-                <td>@(m.Category?.CategoryName ?? "No Category")</td>
-                <td>@m.Title</td>
-                <td>@m.Year</td>
-                <td>@m.Director</td>
-                <td>@m.Rating</td>
-                <td>@(m.Edited == 0 ? "Yes" : "No")</td>
-                <td>@m.LentTo</td>
-                <td>@(m.CopiedToPlex == 0 ? "Yes" : "No")</td>
-                <td>@m.Notes</td>
-                
-                <td><a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@m.MovieId">Edit</a></td>
-                <td><a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@m.MovieId">Delete</a></td>
+                <th scope="col">Category</th>
+                <th scope="col">Title</th>
+                <th scope="col">Year</th>
+                <th scope="col">Director</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Edited</th>
+                <th scope="col">Lent To?</th>
+                <th scope="col">Copied to Plex?</th>
+                <th scope="col">Notes</th>
+                <th scope="col" colspan="2">Actions</th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <td>@(m.Category?.CategoryName ?? "No Category")</td>
+                    <td>@m.Title</td>
+                    <td>@m.Year</td>
+                    <td>@m.Director</td>
+                    <td>@(m.Rating ?? "No Rating")</td>
+                    <td>@(m.Edited == 0 ? "Yes" : "No")</td>
+                    <td>@m.LentTo</td>
+                    <td>@(m.CopiedToPlex == 0 ? "Yes" : "No")</td>
+                    <td>@m.Notes</td>
+                    <td>
+                        <a class="btn btn-info btn-sm text-white" asp-controller="Home" asp-action="Edit" asp-route-id="@m.MovieId">
+                            Edit
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger btn-sm" asp-controller="Home" asp-action="Delete" asp-route-id="@m.MovieId">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
         </tbody>
-    }
-</table>
+    </table>
+</div>
