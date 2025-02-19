@@ -12,7 +12,7 @@
 
     <label asp-for="CategoryId">Category:</label>
     <select asp-for="CategoryId">
-        <option selected>Select a Category</option>
+        <option value="" selected>Select a Category</option>
         @foreach (Category c in ViewBag.Categories)
         {
             <option value="@c.CategoryId">@c.CategoryName</option>
@@ -35,7 +35,7 @@
     <!--Drop down box for rating-->
     <label asp-for="Rating">Rating:</label>
     <select asp-for="Rating">
-        <option selected>Select a Rating</option>
+        <option value="" selected>Select a Rating</option>
         <option value="G">G</option>
         <option value="PG">PG</option>
         <option value="PG-13">PG-13</option>
@@ -46,8 +46,8 @@
     <!--Drop down box to choose yes or no for edited-->
     <label asp-for="Edited">Edited?:</label>
     <select asp-for="Edited" required>
-        <option value=0>Yes</option>
-        <option value=1>No</option>
+        <option value=1>Yes</option>
+        <option value=0>No</option>
     </select>
     <br />
 
@@ -57,8 +57,8 @@
 
     <label asp-for="CopiedToPlex">Copied to Plex?:</label>
     <select asp-for="CopiedToPlex" required>
-        <option value=0>Yes</option>
-        <option value=1>No</option>
+        <option value=1>Yes</option>
+        <option value=0>No</option>
     </select>
     <br />
 
