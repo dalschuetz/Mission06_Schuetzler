@@ -1,40 +1,40 @@
 ﻿@{
-    ViewData["Title"] = "Movie Form";
+    ViewData["Title"] = "Movie Form"; // ViewData, Razor Code
 }
 
-@model Movie
+@model Movie // Model, Razor Code
 
-<!--Columns Needed = ID, Category, Title, Year, Director, Rating, Edited, Lent To, Notes-->
-<!--Sets Category, Title, Year, Director, and Rating to required-->
+<!-- Columns Needed = ID, Category, Title, Year, Director, Rating, Edited, Lent To, Notes -->
+<!-- Sets Category, Title, Year, Director, and Rating to required -->
 
-<form method="post">
-    <input type="hidden" asp-for="MovieId" />
+<form method="post"> <!-- Forms -->
+    <input type="hidden" asp-for="MovieId" /> <!-- Tag Helpers -->
 
-    <label asp-for="CategoryId">Category:</label>
-    <select asp-for="CategoryId">
+    <label asp-for="CategoryId">Category:</label> <!-- Tag Helpers -->
+    <select asp-for="CategoryId"> <!-- Tag Helpers -->
         <option value="" selected>Select a Category</option>
-        @foreach (Category c in ViewBag.Categories)
+        @foreach (Category c in ViewBag.Categories) // Razor Code, ViewBag
         {
             <option value="@c.CategoryId">@c.CategoryName</option>
         }
     </select>
     <br />
 
-    <label asp-for="Title">Title:</label>
-    <input asp-for="Title" required/>
+    <label asp-for="Title">Title:</label> <!-- Tag Helpers -->
+    <input asp-for="Title" required/> <!-- Tag Helpers, Data Annotations -->
     <br />
 
-    <label asp-for="Year">Year:</label>
-    <input asp-for="Year" required min="1888"/>
+    <label asp-for="Year">Year:</label> <!-- Tag Helpers -->
+    <input asp-for="Year" required min="1888"/> <!-- Tag Helpers, Data Annotations -->
     <br />
 
-    <label asp-for="Director">Director:</label>
-    <input asp-for="Director"/>
+    <label asp-for="Director">Director:</label> <!-- Tag Helpers -->
+    <input asp-for="Director"/> <!-- Tag Helpers -->
     <br />
 
-    <!--Drop down box for rating-->
-    <label asp-for="Rating">Rating:</label>
-    <select asp-for="Rating">
+    <!-- Drop down box for rating -->
+    <label asp-for="Rating">Rating:</label> <!-- Tag Helpers -->
+    <select asp-for="Rating"> <!-- Tag Helpers -->
         <option value="" selected>Select a Rating</option>
         <option value="G">G</option>
         <option value="PG">PG</option>
@@ -43,31 +43,31 @@
     </select>
     <br />
 
-    <!--Drop down box to choose yes or no for edited-->
-    <label asp-for="Edited">Edited?:</label>
-    <select asp-for="Edited" required>
+    <!-- Drop down box to choose yes or no for edited -->
+    <label asp-for="Edited">Edited?:</label> <!-- Tag Helpers -->
+    <select asp-for="Edited" required> <!-- Tag Helpers, Data Annotations -->
         <option value=1>Yes</option>
         <option value=0>No</option>
     </select>
     <br />
 
-    <label asp-for="LentTo">Lent To:</label>
-    <input asp-for="LentTo" />
+    <label asp-for="LentTo">Lent To:</label> <!-- Tag Helpers -->
+    <input asp-for="LentTo" /> <!-- Tag Helpers -->
     <br />
 
-    <label asp-for="CopiedToPlex">Copied to Plex?:</label>
-    <select asp-for="CopiedToPlex" required>
+    <label asp-for="CopiedToPlex">Copied to Plex?:</label> <!-- Tag Helpers -->
+    <select asp-for="CopiedToPlex" required> <!-- Tag Helpers, Data Annotations -->
         <option value=1>Yes</option>
         <option value=0>No</option>
     </select>
     <br />
 
-    <!--notes cannot be more than 25 characters long-->
-    <label asp-for="Notes">Notes:</label>
-    <input asp-for="Notes" maxlength="25" />
+    <!-- Notes cannot be more than 25 characters long -->
+    <label asp-for="Notes">Notes:</label> <!-- Tag Helpers -->
+    <input asp-for="Notes" maxlength="25" /> <!-- Tag Helpers, Data Annotations -->
     <br />
 
-    <button type="submit">Submit Movie</button>
+    <button type="submit">Submit Movie</button> <!-- Forms -->
 
-    <div asp-validation-summary="All"></div>
+    <div asp-validation-summary="All"></div> <!-- ModelState.IsValid, Tag Helpers -->
 </form>

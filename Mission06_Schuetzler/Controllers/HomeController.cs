@@ -1,112 +1,109 @@
-using System.Diagnostics;
-using AspNetCoreGeneratedDocument;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Mission06_Schuetzler.Models;
+using System.Diagnostics; // Debugging
+using AspNetCoreGeneratedDocument; // Razor Code (Auto-generated documentation)
+using Microsoft.AspNetCore.Mvc; // Controllers, Actions
+using Microsoft.EntityFrameworkCore; // Entity Framework
+using Mission06_Schuetzler.Models; // Models
 using static System.Net.Mime.MediaTypeNames;
 
-namespace Mission06_Schuetzler.Controllers
+namespace Mission06_Schuetzler.Controllers // MVC Pattern (Controllers)
 {
-    public class HomeController : Controller
+    public class HomeController : Controller // Controllers
     {
-        private MovieContext _movieContext;
+        private MovieContext _movieContext; // DbContext
 
-        public HomeController(MovieContext instance) 
-        { 
+        public HomeController(MovieContext instance)  // Constructor
+        {
             _movieContext = instance;
         }
 
-        public IActionResult Index()
+        public IActionResult Index() // Action
         {
-            return View();
+            return View(); // Views
         }
 
-        public IActionResult GetToKnow()
+        public IActionResult GetToKnow() // Action
         {
-            return View();
+            return View(); // Views
         }
 
-        [HttpGet]
-        public IActionResult MovieForm()
+        [HttpGet] // HTTP Method (Get)
+        public IActionResult MovieForm() // Action
         {
-            ViewBag.Categories = _movieContext.Categories.ToList();
+            ViewBag.Categories = _movieContext.Categories.ToList(); // Linq, DbSet, IQueryable, List
 
-            return View(new Movie());
+            return View(new Movie()); // Views, Models
         }
 
-        [HttpPost]
-        public IActionResult MovieForm(Movie response)
+        [HttpPost] // HTTP Method (Post)
+        public IActionResult MovieForm(Movie response) // Action, Model Binding
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)  // ModelState.IsValid, Data Annotations
             {
-                //saves form to database
-                _movieContext.Movies.Add(response);
-                _movieContext.SaveChanges();
+                // Saves form to database
+                _movieContext.Movies.Add(response); // DbSet, Entity Framework
+                _movieContext.SaveChanges(); // Entity Framework
 
-                //reloads the form page to enter a new movie, no confirmation page
-                return RedirectToAction("MovieList");
+                // Reloads the form page to enter a new movie, no confirmation page
+                return RedirectToAction("MovieList"); // Navigation (Routing) in MVC
             }
             else
             {
-                ViewBag.Categories = _movieContext.Categories.ToList();
+                ViewBag.Categories = _movieContext.Categories.ToList(); // Linq, DbSet, IQueryable, List
 
-                return View(response);
+                return View(response); // Views
             }
         }
 
-
-        //pulling data from database into MovieList
-        //NEED TO FIX CATEGORIES NOT SHOWING UP STILL
-        public IActionResult MovieList()
+        // Pulling data from database into MovieList
+        // NEED TO FIX CATEGORIES NOT SHOWING UP STILL
+        public IActionResult MovieList() // Action
         {
-            var list = _movieContext.Movies
-                .Include(x => x.Category)
-                .OrderBy(x => x.Title)
-                .ToList();
+            var list = _movieContext.Movies // DbSet, IQueryable
+                .Include(x => x.Category) // Entity Framework (Relationships)
+                .OrderBy(x => x.Title) // Linq
+                .ToList(); // List
 
-            return View(list);
+            return View(list); // Views
         }
 
-
-        //Edit Function
-        [HttpGet]
-        public IActionResult Edit(int id)
+        // Edit Function
+        [HttpGet] // HTTP Method (Get)
+        public IActionResult Edit(int id) // Action
         {
-            var editableMovie = _movieContext.Movies
-                .Single(x => x.MovieId == id);
+            var editableMovie = _movieContext.Movies // DbSet, IQueryable
+                .Single(x => x.MovieId == id); // Linq
 
-            ViewBag.Categories = _movieContext.Categories.ToList();
+            ViewBag.Categories = _movieContext.Categories.ToList(); // Linq, DbSet, IQueryable, List
 
-            return View("MovieForm", editableMovie);
+            return View("MovieForm", editableMovie); // Views, Model Binding
         }
 
-        [HttpPost]
-        public IActionResult Edit(Movie updatedMovie) 
+        [HttpPost] // HTTP Method (Post)
+        public IActionResult Edit(Movie updatedMovie)  // Action, Model Binding
         {
-            _movieContext.Update(updatedMovie);
-            _movieContext.SaveChanges();
+            _movieContext.Update(updatedMovie); // Entity Framework
+            _movieContext.SaveChanges(); // Entity Framework
 
-            return RedirectToAction("MovieList");
+            return RedirectToAction("MovieList"); // Navigation (Routing) in MVC
         }
 
-
-        //Delete Function
-        [HttpGet]
-        public IActionResult Delete(int id)
+        // Delete Function
+        [HttpGet] // HTTP Method (Get)
+        public IActionResult Delete(int id) // Action
         {
-            var deleteableMovie = _movieContext.Movies
-                .Single(x => x.MovieId == id);
+            var deleteableMovie = _movieContext.Movies // DbSet, IQueryable
+                .Single(x => x.MovieId == id); // Linq
 
-            return View(deleteableMovie);
+            return View(deleteableMovie); // Views, Model Binding
         }
 
-        [HttpPost]
-        public IActionResult Delete(Movie deletedMovie)
+        [HttpPost] // HTTP Method (Post)
+        public IActionResult Delete(Movie deletedMovie) // Action, Model Binding
         {
-            _movieContext.Remove(deletedMovie);
-            _movieContext.SaveChanges();
-            
-            return RedirectToAction("MovieList");
+            _movieContext.Remove(deletedMovie); // Entity Framework
+            _movieContext.SaveChanges(); // Entity Framework
+
+            return RedirectToAction("MovieList"); // Navigation (Routing) in MVC
         }
     }
 }

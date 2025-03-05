@@ -1,17 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore; // Entity Framework
 
-namespace Mission06_Schuetzler.Models
+namespace Mission06_Schuetzler.Models // Models, Namespace
 {
-    //allows to add data to database
-    public class MovieContext : DbContext
+    // Allows to add data to database
+    public class MovieContext : DbContext // DbContext
     {
-        public MovieContext(DbContextOptions<MovieContext> options) : base (options)
+        public MovieContext(DbContextOptions<MovieContext> options) : base(options) // Constructor, Dependency Injection
         {
-
         }
 
-        public DbSet<Movie> Movies { get; set; }
-        public DbSet<Category> Categories { get; set; }
-
+        public DbSet<Movie> Movies { get; set; } // DbSet, Entity Framework
+        public DbSet<Category> Categories { get; set; } // DbSet, Entity Framework
     }
 }
